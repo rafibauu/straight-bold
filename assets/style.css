@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-image        : url(bg.png);
+    background-position     : center center;
+    background-repeat       : no-repeat;
+    background-attachment   : fixed;
+    background-size         : cover;
+    position                : relative;
+}
+
+#main {
+    height          : 80vh;
+    background      : #0a1944e0;
+    border-radius   : 15px;
+    padding         : 20px 40px;
+}
+
+.hr {
+    width: 50px;
+    margin: 20px 0;
+    border-top: 2px solid #FFF;
+    background: rgb(0,0,0,0.0);
+}
+
+.title {
+    font-family     : 'Fredoka One', cursive;
+    color           : #fff;
+    margin          : 0;
+    letter-spacing  : 1.5px;
+}
+
+.subtitle {
+    color       : #FFF;
+    font-size   : 13px; 
+}
+
+.instructions {
+    color      : #FFF;
+}
+
+.medsos {
+    height: 15px;
+}
