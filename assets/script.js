@@ -48,7 +48,7 @@ $(document).ready(function(){
 
     })
 
-    $(document).on('keyup', 'input[id^="formNumbers-"]:focus', function(event) {
+    $(document).on('keypress', 'input[id^="formNumbers-"]:focus', function(event) {
 
         $nextInput      = $(this).next();
         $nextInputAll   = $(this).nextAll();
@@ -71,65 +71,63 @@ $(document).ready(function(){
             
             else if ($.inArray($inputNumber, $formNumbersGuest) == -1) {
 
-                $(this).attr('readonly', true);    
-                $nextInput.attr('readonly', false).focus();
-                console.log('tidak ada');
-                $formNumbersGuest.push($inputNumber);
-                console.log($formNumbersGuest);
-                // if ($nextInputAll.length != 0) {
+                // If this input is not the last input
+                if ($nextInputAll.length != 0) {
 
-                //     $formNumbersGuest.push(parseInt(event.originalEvent.key));
-                //     $(this).attr('readonly', true);    
-                //     $nextInput.attr('readonly', false).focus();
+                    $(this).val($inputNumber);
+                    $(this).attr('readonly', true);
+                    $nextInput.attr('readonly', false).focus();
+                    $formNumbersGuest.push($inputNumber);
 
-                // } 
+                } 
                 
-                // else if ($nextInputAll.length == 0) {
+                // if this input is the last input
+                else if ($nextInputAll.length == 0) {
     
-                //     $(this).attr('readonly', true).blur();
-                //     $formNumbersGuest.push(parseInt(event.originalEvent.key));
-                //     $('input').val('');
-                //     $('[id^="formNumbers-"]').first().attr('readonly', false).focus();
-                //     console.log($formNumbersGuest);
-                //     $.each($formNumbersGuest, function(i, item) {
-                //         if ($.inArray(item, $mysteryNumber) != -1) {
-
-                //             if ($.inArray(item, $formNumbersGuest)  == $.inArray(item, $mysteryNumber ) ) {
-
-                //                 $straightStatus = $straightStatus + 1;
-
-                //             } 
-                            
-                //             else {
-
-                //                 $boldStatus = $boldStatus + 1;
-                            
-                //             }
-
-                //         }
-                //     })
-
-                //     if ($straightStatus < $formNumbersCount.val()) {
-
-                //         $('#gameStatus .col-5').eq(0).append(
-                //             '<ul class="list-inline mb-2">' +
-                //                 '<li class="list-inline-item">' + $formNumbersGuest.join(' ') + '</li>' +
-                //                 '<li class="list-inline-item">|</li>' +
-                //                 '<li class="list-inline-item">' + $straightStatus + ' Straight ' + $boldStatus + ' Bold</li>' +
-                //             '</ul>');
-                //         $formNumbersGuest = [];
-                //         $straightStatus   = 0;
-                //         $boldStatus       = 0;
-
-                //     }
+                    $(this).attr('readonly', true).blur();
+                    $formNumbersGuest.push($inputNumber);
+                    $('input').val('');
+                    $('[id^="formNumbers-"]').first().attr('readonly', false).focus();
                     
-                //     else {
+                    $.each($formNumbersGuest, function(i, item) {
+                        if ($.inArray(item, $mysteryNumber) != -1) {
 
-                //         alert('YOU WIN !')
+                            if ($.inArray(item, $formNumbersGuest)  == $.inArray(item, $mysteryNumber ) ) {
 
-                //     }
+                                $straightStatus = $straightStatus + 1;
+
+                            } 
+                            
+                            else {
+
+                                $boldStatus = $boldStatus + 1;
+                            
+                            }
+
+                        }
+                    })
+
+                    if ($straightStatus < $formNumbersCount.val()) {
+
+                        $('#gameStatus .col-5').eq(0).append(
+                            '<ul class="list-inline mb-2">' +
+                                '<li class="list-inline-item">' + $formNumbersGuest.join(' ') + '</li>' +
+                                '<li class="list-inline-item">|</li>' +
+                                '<li class="list-inline-item">' + $straightStatus + ' Straight ' + $boldStatus + ' Bold</li>' +
+                            '</ul>');
+                        $formNumbersGuest = [];
+                        $straightStatus   = 0;
+                        $boldStatus       = 0;
+
+                    }
+                    
+                    else {
+
+                        alert('YOU WIN !')
+
+                    }
     
-                // }
+                }
 
             }
 
