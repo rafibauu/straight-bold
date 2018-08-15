@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     $keypressNumberCode = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
-    $keypressBack       = 8;
+    $keypressBack       = 32;
     $mysteryNumber      = new Array();
     $formNumbersGuest   = new Array();
     $straightStatus     = 0;
@@ -44,7 +44,7 @@ $(document).ready(function(){
         // Focus on first input element
         $('[id^="formNumbers-"]').first().attr('readonly', false).focus();
         
-        console.log($mysteryNumber);
+        // console.log($mysteryNumber);
 
     })
 
@@ -63,8 +63,6 @@ $(document).ready(function(){
 
             if ($.inArray($inputNumber, $formNumbersGuest) != -1) {
 
-                // $(this).val('');
-                console.log('Sudah ada');
                 return false;
 
             } 
@@ -90,6 +88,7 @@ $(document).ready(function(){
                     $('[id^="formNumbers-"]').first().attr('readonly', false).focus();
                     
                     $.each($formNumbersGuest, function(i, item) {
+
                         if ($.inArray(item, $mysteryNumber) != -1) {
 
                             if ($.inArray(item, $formNumbersGuest)  == $.inArray(item, $mysteryNumber ) ) {
@@ -105,16 +104,31 @@ $(document).ready(function(){
                             }
 
                         }
+
                     })
 
                     if ($straightStatus < $formNumbersCount.val()) {
 
-                        $('#gameStatus .col-5').eq(0).append(
-                            '<ul class="list-inline mb-2">' +
-                                '<li class="list-inline-item">' + $formNumbersGuest.join(' ') + '</li>' +
-                                '<li class="list-inline-item">|</li>' +
-                                '<li class="list-inline-item">' + $straightStatus + ' Straight ' + $boldStatus + ' Bold</li>' +
-                            '</ul>');
+                        if ($('#gameStatus .col-5').eq(0).children().length < 9) {
+
+                            $('#gameStatus .col-5').eq(0).append(
+                                '<ul class="list-inline mb-2">' +
+                                    '<li class="list-inline-item">' + $formNumbersGuest.join(' ') + '</li>' +
+                                    '<li class="list-inline-item">|</li>' +
+                                    '<li class="list-inline-item">' + $straightStatus + ' Straight ' + $boldStatus + ' Bold</li>' +
+                                '</ul>');
+
+                        } else {
+
+                            $('#gameStatus .col-5').eq(1).append(
+                                '<ul class="list-inline mb-2">' +
+                                    '<li class="list-inline-item">' + $formNumbersGuest.join(' ') + '</li>' +
+                                    '<li class="list-inline-item">|</li>' +
+                                    '<li class="list-inline-item">' + $straightStatus + ' Straight ' + $boldStatus + ' Bold</li>' +
+                                '</ul>');
+
+                        }
+
                         $formNumbersGuest = [];
                         $straightStatus   = 0;
                         $boldStatus       = 0;
@@ -123,7 +137,16 @@ $(document).ready(function(){
                     
                     else {
 
-                        alert('YOU WIN !')
+                        alert('YOU WIN !');
+                        $('#gameInput .col-10').empty();
+                        $('#gameStatus .col-5').empty();
+                        $('#giveUp').attr('disabled', true);
+                        $('#submitOn').attr('disabled', false);
+                        $('#formNumberLength').attr('disabled', false);
+                        $mysteryNumber    = [];
+                        $formNumbersGuest = [];
+                        $straightStatus   = 0;
+                        $boldStatus       = 0;
 
                     }
     
@@ -143,14 +166,14 @@ $(document).ready(function(){
 
         } else {
 
-            $(this).val('');
+            return false;
 
         }
     });
 
     $('#giveUp').on('click', function(){
 
-        $('#gameInput .col-10').eq(0).empty();
+        $('#gameInput .col-10').empty();
         $('#gameStatus .col-5').empty();
         $(this).attr('disabled', true);
         $('#submitOn').attr('disabled', false);
